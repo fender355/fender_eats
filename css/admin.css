@@ -1,0 +1,139 @@
+/* 
+    Author: Brian Samoylov;
+    Theme: Fender Eats Admin;
+    Version: 6.1.1;
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Tahoma, sans-serif;
+}
+
+.wrapper{
+    border:1px solid #000000;
+    border-radius: 40px;
+    padding: 1%;
+    width: 80%; 
+    margin: 0 auto;
+}
+
+.text-margin{
+    width: 80%;
+    margin-left: 20px; 
+    margin-right: 20px;
+}
+
+.admin-panel-text{
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+    display: inline;
+}
+
+.clearfix{
+    float: none;
+    clear: both;
+}
+
+table tr th{
+    border-bottom: 1px solid black;
+    text-align: left;
+    padding: 1%;
+}
+
+table tr td{
+    padding: 1%;
+}
+
+.btn-primary{
+    background-color: #b5e5ff;
+    margin-left: 20px;
+    margin-right: 20px; 
+    padding: 1%;
+    border-radius: 20px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary:hover{
+    background-color: #c6c7ff;
+}
+
+.btn-secondary{
+    background-color: #a5d6a7;
+    margin-left: 10px;
+    margin-right: 10px; 
+    padding: 1.5%;
+    border-radius: 20px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-secondary:hover{
+    background-color: #81c784;
+}
+
+.btn-tertiary{
+    background-color: #ef9a9a;
+    margin-left: 10px;
+    margin-right: 10px; 
+    padding: 1.5%;
+    border-radius: 20px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-tertiaary:hover{
+    background-color: #e57373;
+}
+
+/* CSS For Menu */
+
+.menu ul{
+    list-style-type: none; 
+}
+
+.menu ul li{
+    display: inline; 
+    padding: 0.05%;
+    margin-left: 20px; 
+    margin-right: 20px;
+}
+
+.menu ul li a{
+    text-decoration: none; 
+    font-weight: bolder;
+    font-size: 14;
+    color: #000000;
+}
+
+.menu ul li a:hover{
+    color: #02754b;
+}
+
+/* CSS For Main Content */
+
+.main-content{
+    margin: 1% 0;
+    background-color: #ffffff;
+}
+
+.col-4{
+    width: 16%; 
+    background-color: #cfe6b5;
+    margin: 10px;
+    padding: 30px;
+    border-radius: 40px;
+    float: left; 
+}
+
+/* CSS For Footer */
+
+.footer{
+    background-color: #eeeeee;
+    color: #000000;
+}
