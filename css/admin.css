@@ -36,6 +36,12 @@
     clear: both;
 }
 
+.tbl-30{
+    width: 30%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 table tr th{
     border-bottom: 1px solid black;
     text-align: left;
@@ -89,6 +95,32 @@ table tr td{
 
 .btn-tertiaary:hover{
     background-color: #e57373;
+}
+
+.my-3 {
+    margin-top: 1rem!important;
+    margin-bottom: 1rem!important;
+}
+
+.mx-2 {
+    margin-right: .5rem!important;
+    margin-left: .5rem!important;
+}
+
+.g-2, .gy-2 {
+    --bs-gutter-y: 0.5rem;
+}
+
+.g-2, .gx-2 {
+    --bs-gutter-x: 0.5rem;
+}
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
 }
 
 /* CSS For Menu */

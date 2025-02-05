@@ -10,7 +10,7 @@
                 <br>
 
                 <!-- Button to Add Admin-->
-                <a href="#" class = "btn-primary">Add Admin</a>
+                <a href="add-admin.php" class = "btn-primary">Add Admin</a>
 
                 <br>
                 <br>
