@@ -1,6 +1,5 @@
-# Restaurant Food Order Theme
-This is a Restaurant Theme Website Template, designed using html and css. It was developed while teaching "Responsive Web Design Course".
-
+# Fender Eats
+"Fender Eats" Application, Perniagaan Fender Maju Jaya 2025 All Rights Reserved. 
 
 ## Support Developer
 1. Subscribe & Share my YouTube Channel
