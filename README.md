@@ -25,4 +25,4 @@ This is a Restaurant Theme Website Template, designed using html and css. It was
 
 
 ## Follow Me on
-1. Instagram - [@vijaythapa.code](https://www.instagram.com/fender_355/ "Brian on Instagram")
+1. Instagram - [@fender_355](https://www.instagram.com/fender_355/ "Brian on Instagram")
