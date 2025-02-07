@@ -39,20 +39,19 @@
 
 <?php
 
-session_start(); // Start the session
+    if(isset($_POST['submit'])) {
 
-if (isset($_POST["submit"])) {
-    $_SESSION['button_clicked'] = true; // Store click status in session
-    header("Location: " . $_SERVER['PHP_SELF']); // Redirect to avoid resubmission
-    exit();
-}
+        // Get data from Form
+        $admin_name = $_POST['admin_name'];
+        $admin_mail = $_POST['admin_mail'];
+        $admin_pw = $_POST['admin_pw'];
 
-// Display the message based on session status
-if (isset($_SESSION['button_clicked']) && $_SESSION['button_clicked'] === true) {
-    echo "Button Clicked";
-    unset($_SESSION['button_clicked']); // Clear session to reset for next click
-} else {
-    echo "Button Not Clicked";
-}
+        //SQL Query to Save Data into Database
+        $sql = "INSERT INTO admin_acc SET
+            admin_name = '$admin_name',
+            admin_mail = '$admin_mail',
+            admin_pw = '$admin_pw'
+        "
+    }
 
 ?>
