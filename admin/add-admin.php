@@ -51,7 +51,14 @@
             admin_name = '$admin_name',
             admin_mail = '$admin_mail',
             admin_pw = '$admin_pw'
-        "
+        ";
+
+        //Execute SQL Query and Save Data into Database
+        $conn = mysqli_connect('localhost', 'root', '') or die(mysqli_error()); // Init Database Connection
+        $db_select = mysqli_select_db($conn, 'fender_eats') or die(mysqli_error()); // Select Database
+        
+        //$res = mysqli_query($conn, $sql) or die(mysqli_error());
+
     }
 
 ?>
