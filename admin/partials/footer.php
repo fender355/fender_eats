@@ -11,7 +11,7 @@
                 <p class = "text-margin"><br> Accessibility </p>
                 <p class = "text-margin"><br> Cookie Preferences </p> 
 
-                <p class = "text-margin"><br><br> © 2025 Perniagaan Fender Maju Jaya. All right reserved. </p>
+                <p class = "text-margin"><br><br> © 2025 Perniagaan Fender Maju Jaya. All rights reserved. </p>
             </div>
         </div>
         <!-- Footer Section Ends --> 

@@ -2,9 +2,26 @@
 
 <div class="main-content">
     <div class="wrapper">
+
         <br>
-        <h1 class="text-margin">Add Admin</h1>
+
+        <h1 class="text-margin">Add An Administrator</h1>
+
         <br>
+
+        <?php
+
+            if(isset($_SESSION['add'])) { //Check Session Set or Not
+
+                echo '<span class = "text-margin">' . $_SESSION['add']; // Display Session Message if Set
+                unset($_SESSION['add']); //Remove Session Message
+
+            }
+
+        ?>
+
+        <br>
+
         <form method = "POST" action = "">
 
             <table class = "tbl-30">
@@ -52,12 +69,36 @@
             admin_mail = '$admin_mail',
             admin_pw = '$admin_pw'
         ";
-
-        //Execute SQL Query and Save Data into Database
-        $conn = mysqli_connect('localhost', 'root', '') or die(mysqli_error()); // Init Database Connection
-        $db_select = mysqli_select_db($conn, 'fender_eats') or die(mysqli_error()); // Select Database
         
-        //$res = mysqli_query($conn, $sql) or die(mysqli_error());
+        //Executing Query and Saving Data into Database 
+        $res = mysqli_query($conn, $sql) or die(mysqli_error());
+
+        //Check whether the (Query is Executed) Data is Inserted or Not, And Display Appropriate Message
+        if($res == TRUE) {
+
+            //Data Inserted
+            //echo "Data Inserted";
+
+            //Create A Session Variable to Display Message
+            $_SESSION['add'] = "Administrator Added Successfully. "; 
+
+            //Redirect Page to Manage Administrators
+            header("location: ".SITEURL.'admin/admin-manage.php');
+
+        }
+
+        else {
+
+            //Failed to Insert Data
+            //echo "Failed to Insert Data";
+
+            //Create A Session Variable to Display Message
+            $_SESSION['add'] = "Administrator Failed to Add Successfully. "; 
+
+            //Redirect Page to Add Administrator 
+            header("location: ".SITEURL.'admin/add-admin.php');
+
+        }
 
     }
 

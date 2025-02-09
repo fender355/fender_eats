@@ -9,6 +9,19 @@
 
                 <br>
 
+                <?php 
+
+                    if(isset($_SESSION['add'])) {
+
+                        echo '<span class = "text-margin">' . $_SESSION['add']; // Display Session Message
+                        unset($_SESSION['add']); // Removing Session Message
+
+                    }
+                
+                ?>
+
+                <br><br>
+
                 <!-- Button to Add Admin-->
                 <a href="add-admin.php" class = "btn-primary">Add Admin</a>
 
@@ -18,43 +31,71 @@
                 <table class = "text-margin">
                     
                         <tr>
-                            <th>S.N.</th>
+                            <th>ID.</th>
                             <th>Full Name</th>
-                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Password</th>
                             <th>Actions</th>
                         </tr>
                     
+                        <?php 
 
-                   
-                        <tr>
-                            <td>0001. </td>
-                            <td>Brian Samoylov</td>
-                            <td>fender355</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-tertiary">Delete Admin</a>
-                            </td>
-                        </tr>
+                            //Query to Get all Admin
+                            $sql = "SELECT * FROM admin_acc";
 
-                        <tr>
-                            <td>0002. </td>
-                            <td>Brian V Samoylov</td>
-                            <td>vladimir1922</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-tertiary">Delete Admin</a>
-                            </td>
-                        </tr>
+                            //Execute the Query 
+                            $res = mysqli_query($conn, $sql);
 
-                        <tr>
-                            <td>0003. </td>
-                            <td>Brian Samoylov</td>
-                            <td>fender355</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-tertiary">Delete Admin</a>
-                            </td>
-                        </tr>
+                            //Check whether the Query is Executed or Not
+                            if($res == TRUE) {
+
+                                //Count Rows to Check Data Quantity
+                                $count = mysqli_num_rows($res); //Function to Get All Rows in DB
+
+                                $admin_id = 1; 
+
+                                //Check the Num of Rows
+                                if($count > 0) {
+
+                                    // We have data in db
+                                    while($rows = mysqli_fetch_assoc($res)) {
+
+                                        // Get All Data from db, run as long as we have data in db
+
+                                        // Get individual data
+                                        $admin_acc_id = $rows['admin_acc_id'];
+                                        $admin_name = $rows['admin_name'];
+                                        $admin_mail = $rows['admin_mail'];
+                                        $admin_pw = $rows['admin_pw'];
+
+                                        // Display values in table
+                                        ?> 
+
+                                        <tr>
+                                            <td><?php echo $admin_id++; ?>. </td>
+                                            <td><?php echo $admin_name; ?></td>
+                                            <td><?php echo $admin_mail; ?></td>
+                                            <td><?php echo $admin_pw; ?></td>
+                                            <td>
+                                                <a href="#" class="btn-secondary">Update Admin</a>
+                                                <a href="#" class="btn-tertiary">Delete Admin</a>
+                                            </td>
+                                        </tr> 
+
+                                        <?php
+
+                                    }
+
+                                }
+                                else {
+
+                                    // We dont have data in db
+
+                                }
+
+                            }
+
+                        ?>
                     
                 </table>
 
