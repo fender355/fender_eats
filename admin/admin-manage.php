@@ -78,7 +78,7 @@
                                             <td><?php echo $admin_pw; ?></td>
                                             <td>
                                                 <a href="#" class="btn-secondary">Update Admin</a>
-                                                <a href="#" class="btn-tertiary">Delete Admin</a>
+                                                <a href="<?php echo SITEURL; ?>admin/delete-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-tertiary">Delete Admin</a>
                                             </td>
                                         </tr> 
 
