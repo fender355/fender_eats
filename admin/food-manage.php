@@ -4,7 +4,7 @@
     <div class="wrapper">
         <br><br>
         <h1 class = "text-margin">Manage Foods</h1>
-        <br>
+        <br><br><br>
 
                 <!-- Button to Add Cat-->
                 <a href="#" class = "btn-primary">Add Food</a>
@@ -28,7 +28,7 @@
                             <td>fender355</td>
                             <td>
                                 <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-tertiary">Delete Admin</a>
+                                <a href="#" class="btn-danger">Delete Admin</a>
                             </td>
                         </tr>
 
@@ -38,7 +38,7 @@
                             <td>vladimir1922</td>
                             <td>
                                 <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-tertiary">Delete Admin</a>
+                                <a href="#" class="btn-danger">Delete Admin</a>
                             </td>
                         </tr>
 
@@ -48,7 +48,7 @@
                             <td>fender355</td>
                             <td>
                                 <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-tertiary">Delete Admin</a>
+                                <a href="#" class="btn-danger">Delete Admin</a>
                             </td>
                         </tr>
                     
