@@ -13,8 +13,15 @@
 
                     if(isset($_SESSION['add'])) {
 
-                        echo '<span class = "text-margin">' . $_SESSION['add']; // Display Session Message
+                        echo $_SESSION['add']; // Display Session Message
                         unset($_SESSION['add']); // Removing Session Message
+
+                    }
+
+                    if(isset($_SESSION['delete'])) {
+
+                        echo $_SESSION['delete']; //~
+                        unset($_SESSION['delete']); //~
 
                     }
                 
@@ -78,7 +85,7 @@
                                             <td><?php echo $admin_pw; ?></td>
                                             <td>
                                                 <a href="#" class="btn-secondary">Update Admin</a>
-                                                <a href="<?php echo SITEURL; ?>admin/delete-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-tertiary">Delete Admin</a>
+                                                <a href="<?php echo SITEURL; ?>admin/confirm-delete-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-danger">Delete Admin</a>
                                             </td>
                                         </tr> 
 

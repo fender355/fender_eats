@@ -82,7 +82,7 @@ table tr td{
     background-color: #81c784;
 }
 
-.btn-tertiary{
+.btn-danger{
     background-color: #ef9a9a;
     margin-left: 10px;
     margin-right: 10px; 
@@ -93,8 +93,22 @@ table tr td{
     font-weight: bold;
 }
 
-.btn-tertiary:hover{
+.btn-danger:hover{
     background-color: #e57373;
+}
+
+.success{
+    color: #81c784;
+    width: 80%;
+    margin-left: 20px; 
+    margin-right: 20px;
+}
+
+.error{
+    color: #ef9a9a;
+    width: 80%;
+    margin-left: 20px; 
+    margin-right: 20px;
 }
 
 .my-3 {

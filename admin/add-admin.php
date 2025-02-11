@@ -41,8 +41,10 @@
                 </tr>
 
                 <tr>
-                    <td colspan = "2">
-                        <input type="submit" name="submit" value="Add" class="btn-secondary">
+                    <td colspan = "3" class = "form-buttons">
+                        <br>
+                        <input type="submit" name="submit" value="Add Admin" class="btn-secondary">
+                        <a href="<?php echo SITEURL; ?>admin/admin-manage.php" class="btn-danger">Cancel</a>
                     </td>
                 </tr>
             </table>
@@ -80,7 +82,7 @@
             //echo "Data Inserted";
 
             //Create A Session Variable to Display Message
-            $_SESSION['add'] = "Administrator Added Successfully. "; 
+            $_SESSION['add'] = "<div class='success'>Administrator Added Successfully. </div>"; 
 
             //Redirect Page to Manage Administrators
             header("location: ".SITEURL.'admin/admin-manage.php');
@@ -93,7 +95,7 @@
             //echo "Failed to Insert Data";
 
             //Create A Session Variable to Display Message
-            $_SESSION['add'] = "Administrator Failed to Add Successfully. "; 
+            $_SESSION['add'] = "<div class='error>Failed to Add This Administrator. </div>"; 
 
             //Redirect Page to Add Administrator 
             header("location: ".SITEURL.'admin/add-admin.php');
