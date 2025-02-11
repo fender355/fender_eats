@@ -28,7 +28,7 @@ if(isset($_GET['admin_acc_id'])) {
 <div class="main-content">
     <div class="wrapper">
         <br>
-        <h1 class = "text-margin">Delete Administrator</h1>
+        <h1 class = "text-margin">Delete <?php echo $name; ?>?</h1>
         <br>
         
         <div class="text-margin">

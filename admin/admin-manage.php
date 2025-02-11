@@ -24,6 +24,13 @@
                         unset($_SESSION['delete']); //~
 
                     }
+
+                    if(isset($_SESSION['update'])) {
+
+                        echo $_SESSION['update']; //~
+                        unset($_SESSION['update']); //~
+
+                    }
                 
                 ?>
 
@@ -84,7 +91,7 @@
                                             <td><?php echo $admin_mail; ?></td>
                                             <td><?php echo $admin_pw; ?></td>
                                             <td>
-                                                <a href="#" class="btn-secondary">Update Admin</a>
+                                                <a href="<?php echo SITEURL; ?>admin/update-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-secondary">Update Admin</a>
                                                 <a href="<?php echo SITEURL; ?>admin/confirm-delete-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-danger">Delete Admin</a>
                                             </td>
                                         </tr> 
