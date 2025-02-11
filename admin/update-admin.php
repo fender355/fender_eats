@@ -1,114 +1,123 @@
-<?php 
-include('partials/menu.php'); 
+<?php
 include('../config/constants.php');
 
-// Get ID from GET request
-if(isset($_GET['admin_acc_id'])) {
-    $admin_acc_id = $_GET['admin_acc_id'];
-    
-    // Get admin details
-    $sql = "SELECT * FROM admin_acc WHERE admin_acc_id=$admin_acc_id";
-    $res = mysqli_query($conn, $sql);
-    
-    if($res && mysqli_num_rows($res) == 1) {
-        $row = mysqli_fetch_assoc($res);
-        $name = $row['admin_name'];
-        $email = $row['admin_mail'];
-    } else {
-        $_SESSION['delete'] = "<div class='error'>Admin not found. </div>";
-        header('location:'.SITEURL.'admin/admin-manage.php');
-        exit();
+// Initialize variables
+$errors = [];
+$name = '';
+$email = '';
+$admin_acc_id = '';
+
+// Process form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    // Get form data
+    $admin_acc_id = trim($_POST['admin_acc_id']);
+    $name = trim($_POST['admin_name']);
+    $email = trim($_POST['admin_mail']);
+
+    // Validate inputs
+    if (empty($name)) {
+        $errors['admin_name'] = 'Name is required.';
+    }
+
+    if (empty($email)) {
+        $errors['admin_mail'] = 'Email is required.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['admin_mail'] = 'Invalid email format.';
+    }
+
+    // If no errors, update database
+    if (empty($errors)) {
+        $sql = "UPDATE admin_acc SET
+                admin_name = '$name',
+                admin_mail = '$email'
+                WHERE admin_acc_id = '$admin_acc_id'";
+
+        $res = mysqli_query($conn, $sql);
+
+        if ($res) {
+            $_SESSION['update'] = "<div class='success'>Admin updated successfully.</div>";
+            header("Location: ".SITEURL.'admin/admin-manage.php');
+            exit();
+        } else {
+            $_SESSION['update'] = "<div class='error'>Failed to update admin.</div>";
+            header("Location: ".SITEURL.'admin/admin-manage.php');
+            exit();
+        }
     }
 } else {
-    header('location:'.SITEURL.'admin/admin-manage.php');
-    exit();
+    // Handle GET request
+    if (isset($_GET['admin_acc_id'])) {
+        $admin_acc_id = $_GET['admin_acc_id'];
+        $sql = "SELECT * FROM admin_acc WHERE admin_acc_id = $admin_acc_id";
+        $res = mysqli_query($conn, $sql);
+        
+        if ($res && mysqli_num_rows($res) === 1) {
+            $row = mysqli_fetch_assoc($res);
+            $name = $row['admin_name'];
+            $email = $row['admin_mail'];
+        } else {
+            $_SESSION['delete'] = "<div class='error'>Admin not found.</div>";
+            header('Location: '.SITEURL.'admin/admin-manage.php');
+            exit();
+        }
+    } else {
+        header('Location: '.SITEURL.'admin/admin-manage.php');
+        exit();
+    }
 }
+
+include('partials/menu.php');
 ?>
 
 <div class="main-content">
     <div class="wrapper">
         <br>
-        <h1 class = "text-margin">Update <?php echo $name; ?></h1>
+        <h1 class="text-margin">Update <?php echo htmlspecialchars($name); ?></h1>
 
         <br>
 
-        <form action="" method="POST">
+        <?php if (!empty($errors)): ?>
+            <div class="error text-margin">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <br>
+        <?php endif; ?>
 
-            <table class = "tbl-30">
+        <form method="POST" action="">
+            <table class="tbl-30">
                 <tr>
                     <td>Full Name: </td>
                     <td>
-                        <input type="text" name="admin_name" value="<?php echo $name; ?>" placeholder="<?php echo $name; ?>">
+                        <input type="text" name="admin_name" 
+                               class="form-control <?= isset($errors['admin_name']) ? 'is-invalid' : '' ?>" 
+                               value="<?php echo htmlspecialchars($name); ?>">
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Username: </td>
+                    <td>Email: </td>
                     <td>
-                        <input type="text" name="admin_mail" value="<?php echo $email; ?>" placeholder="<?php echo $email; ?>">
+                        <input type="email" name="admin_mail" 
+                               class="form-control <?= isset($errors['admin_mail']) ? 'is-invalid' : '' ?>" 
+                               value="<?php echo htmlspecialchars($email); ?>">
                     </td>
                 </tr>
 
                 <tr>
-                    <td colspan = "3" class = "text-margin">
+                    <td colspan="2" class="form-buttons">
                         <br>
                         <input type="hidden" name="admin_acc_id" value="<?php echo $admin_acc_id; ?>">
-                        <input type="submit" name="submit" value="Update Admin" class = "btn-secondary">
+                        <input type="submit" name="submit" value="Update Admin" class="btn-secondary">
                         <a href="<?php echo SITEURL; ?>admin/admin-manage.php" class="btn-danger">Cancel</a>
                     </td>
                 </tr>
-
             </table>
-
         </form>
     </div>
 </div>
 
 <?php include('partials/footer.php'); ?>
-
-<?php
-
-    if(isset($_POST['submit'])) {
-
-        // Get data from Form
-        $admin_acc_id = $_POST['admin_acc_id'];
-        $admin_name = $_POST['admin_name'];
-        $admin_mail = $_POST['admin_mail'];
-
-        //SQL Query to Save Data into Database
-        $sql = "UPDATE admin_acc SET
-            admin_name = '$admin_name',
-            admin_mail = '$admin_mail'
-            WHERE admin_acc_id = '$admin_acc_id'
-        ";
-        
-        //Executing Query and Saving Data into Database 
-        $res = mysqli_query($conn, $sql) or die(mysqli_error());
-
-        //Check whether the (Query is Executed) Data is Inserted or Not, And Display Appropriate Message
-        if($res == TRUE) {
-
-            //Create A Session Variable to Display Message
-            $_SESSION['update'] = "<div class='success'>Admin updated successfully. </div>"; 
-
-            //Redirect Page to Manage Administrators
-            header("location: ".SITEURL.'admin/admin-manage.php');
-
-        }
-
-        else {
-
-            //Failed to Insert Data
-            //echo "Failed to Insert Data";
-
-            //Create A Session Variable to Display Message
-            $_SESSION['update'] = "<div class='error>Failed to update this admin. </div>"; 
-
-            //Redirect Page to Add Administrator 
-            header("location: ".SITEURL.'admin/add-admin.php');
-
-        }
-
-    }
-
-?>
