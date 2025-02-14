@@ -24,6 +24,12 @@
     margin-right: 20px;
 }
 
+.text-margin-15{
+    width: 90%;
+    margin-left: 15px; 
+    margin-right: 15px;
+}
+
 .admin-panel-text{
     margin-left: 20px;
     margin-right: 20px;
@@ -42,21 +48,25 @@
     margin-right: 20px;
 }
 
+.tbl-50{
+    width: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 table tr th{
     border-bottom: 1px solid black;
     text-align: left;
-    padding: 1%;
+    padding: 1.2%;
 }
 
 table tr td{
-    padding: 1%;
+    padding: 1.2%;
 }
 
 .btn-primary{
     background-color: #b5e5ff;
-    margin-left: 20px;
-    margin-right: 20px; 
-    padding: 1%;
+    padding: 1.5%;
     border-radius: 20px;
     color: black;
     text-decoration: none;
@@ -64,13 +74,11 @@ table tr td{
 }
 
 .btn-primary:hover{
-    background-color: #c6c7ff;
+    background-color: #90cbf9;
 }
 
 .btn-secondary{
     background-color: #a5d6a7;
-    margin-left: 10px;
-    margin-right: 10px; 
     padding: 1.5%;
     border-radius: 20px;
     color: black;
@@ -84,8 +92,6 @@ table tr td{
 
 .btn-danger{
     background-color: #ef9a9a;
-    margin-left: 10px;
-    margin-right: 10px; 
     padding: 1.5%;
     border-radius: 20px;
     color: black;
@@ -135,6 +141,25 @@ table tr td{
     display: flex;
     flex-wrap: wrap;
     margin-top: calc(-1 * var(--bs-gutter-y));
+}
+
+.password-toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 4px 8px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.toggle-password:hover {
+    background: #e0e0e0;
 }
 
 /* CSS For Menu */

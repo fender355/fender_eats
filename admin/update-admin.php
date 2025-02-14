@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         $res = mysqli_query($conn, $sql);
 
         if ($res) {
-            $_SESSION['update'] = "<div class='success'>Admin updated successfully.</div>";
+            $_SESSION['update'] = "<div class='success'>Admin updated successfully. </div>";
             header("Location: ".SITEURL.'admin/admin-manage.php');
             exit();
         } else {
-            $_SESSION['update'] = "<div class='error'>Failed to update admin.</div>";
+            $_SESSION['update'] = "<div class='error'>Failed to update admin. </div>";
             header("Location: ".SITEURL.'admin/admin-manage.php');
             exit();
         }

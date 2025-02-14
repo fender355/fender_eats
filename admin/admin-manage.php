@@ -31,24 +31,32 @@
                         unset($_SESSION['update']); //~
 
                     }
+
+                    if(isset($_SESSION['pw'])) {
+
+                        echo $_SESSION['pw']; //~
+                        unset($_SESSION['pw']); //~
+
+                    }
                 
                 ?>
 
                 <br><br>
 
                 <!-- Button to Add Admin-->
+                <span class = "text-margin">
                 <a href="add-admin.php" class = "btn-primary">Add Admin</a>
+                </span>
 
                 <br>
                 <br>
                 
-                <table class = "text-margin">
+                <table class = "text-margin-15">
                     
                         <tr>
                             <th>ID.</th>
                             <th>Full Name</th>
                             <th>Email</th>
-                            <th>Password</th>
                             <th>Actions</th>
                         </tr>
                     
@@ -89,8 +97,8 @@
                                             <td><?php echo $admin_id++; ?>. </td>
                                             <td><?php echo $admin_name; ?></td>
                                             <td><?php echo $admin_mail; ?></td>
-                                            <td><?php echo $admin_pw; ?></td>
                                             <td>
+                                                <a href="<?php echo SITEURL; ?>admin/update-password.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-primary">Change Password</a>
                                                 <a href="<?php echo SITEURL; ?>admin/update-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-secondary">Update Admin</a>
                                                 <a href="<?php echo SITEURL; ?>admin/confirm-delete-admin.php?admin_acc_id=<?php echo $admin_acc_id; ?>" class="btn-danger">Delete Admin</a>
                                             </td>

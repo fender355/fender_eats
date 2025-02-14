@@ -102,8 +102,13 @@ include('partials/menu.php');
                 <tr>
                     <td>Password: </td>
                     <td>
-                        <input type="password" class="form-control <?= isset($errors['admin_pw']) ? 'is-invalid' : '' ?>" 
-                               name="admin_pw" id="admin_pw" placeholder="********" autocomplete="off">
+                        <div class="password-toggle-container">
+                            <input type="password" class="form-control <?= isset($errors['admin_pw']) ? 'is-invalid' : '' ?>" 
+                                   name="admin_pw" id="admin_pw" placeholder="********" autocomplete="off">
+                            <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" aria-label="Show password">
+                                👁️
+                            </button>
+                        </div>
                     </td>
                 </tr>
 
@@ -118,6 +123,23 @@ include('partials/menu.php');
         </form>
     </div>
 </div>
+
+<script>
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('admin_pw');
+    const toggleButton = document.querySelector('.toggle-password');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.innerHTML = '－';
+        toggleButton.setAttribute('aria-label', 'Hide password');
+    } else {
+        passwordInput.type = 'password';
+        toggleButton.innerHTML = '👁️';
+        toggleButton.setAttribute('aria-label', 'Show password');
+    }
+}
+</script>
 
 <?php include('partials/footer.php'); ?>
 
