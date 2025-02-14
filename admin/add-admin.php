@@ -1,4 +1,6 @@
 <?php
+include('../config/constants.php');
+
 // Process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     // Get data from Form
@@ -118,3 +120,4 @@ include('partials/menu.php');
 </div>
 
 <?php include('partials/footer.php'); ?>
+
