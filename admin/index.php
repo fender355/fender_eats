@@ -5,7 +5,16 @@
             <div class = "wrapper">
                 <br><br>
                 <h1 class = "text-margin"> Dashboard </h1>
-                <br><br>
+                <br>
+
+                <?php 
+                    if(isset($_SESSION['login'])) {
+                        echo $_SESSION['login'];
+                        unset($_SESSION['login']);
+                    }
+                ?>
+
+                <br>
 
                 <div class = "col-4">
                     <h1>5</h1> 

@@ -6,7 +6,9 @@
         <h1 class = "text-margin">Manage Categories</h1>
         <br><br><br>
                 <!-- Button to Add Cat-->
+                <span class='text-margin'>
                 <a href="#" class = "btn-primary">Add Category</a>
+                </span>
 
                 <br><br>
                 

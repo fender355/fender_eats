@@ -46,9 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                     'name' => $row['admin_name'],
                     'email' => $row['admin_mail']
                 ];
+                $_SESSION['login'] = "<div class='success'> Login Successful. </div>";
+                $_SESSION['user'] = $admin_mail;
                 
                 // Redirect to admin panel
-                header('Location: ' . SITEURL . 'admin/admin-manage.php');
+                header('Location: ' . SITEURL . 'admin/');
                 exit();
             } else {
                 $errors[] = 'Invalid email or password.';
@@ -115,6 +117,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             <h1 class="text-center">Login</h1>
             <h1 class="text-center">Fender Eats Admin Panel</h1>
             <br><br>
+
+            <?php 
+            if(isset($_SESSION['no-login-message'])) {
+                echo $_SESSION['no-login-message'];
+                unset($_SESSION['no-login-message']);
+                echo "<br>";
+            }
+            ?>
 
             <?php if (!empty($errors)): ?>
                 <div class="error">

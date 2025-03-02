@@ -7,7 +7,9 @@
         <br><br><br>
 
                 <!-- Button to Add Cat-->
+                <span class='text-margin'>
                 <a href="#" class = "btn-primary">Add Food</a>
+                </span>
 
                 <br><br>
                 
