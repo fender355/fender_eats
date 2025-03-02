@@ -30,6 +30,10 @@
     margin-right: 15px;
 }
 
+.text-center{
+    text-align: center;
+}
+
 .admin-panel-text{
     margin-left: 20px;
     margin-right: 20px;
@@ -111,10 +115,14 @@ table tr td{
 }
 
 .error{
-    color: #ef9a9a;
+    color: #c62828;
     width: 80%;
     margin-left: 20px; 
     margin-right: 20px;
+}
+
+.error p {
+    margin: 5px 0; /* Add spacing between error messages */
 }
 
 .my-3 {
@@ -207,4 +215,13 @@ table tr td{
 .footer{
     background-color: #eeeeee;
     color: #000000;
+}
+
+/* CSS For Login */
+.login{
+    border: 1px solid #000000;
+    padding: 4%; 
+    border-radius: 33px;
+    width: 35%; 
+    margin: 8% auto;
 }

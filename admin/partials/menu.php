@@ -21,6 +21,7 @@
                     <li><a href = "category-manage.php">CATEGORY</a></li>
                     <li><a href = "food-manage.php">FOOD</a></li>
                     <li><a href = "order-manage.php">ORDER</a></li>
+                    <li><a href = "logout.php">LOGOUT</a></li>
                 </ul>
             </div>
         </div>
