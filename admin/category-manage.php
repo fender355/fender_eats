@@ -5,9 +5,19 @@
         <br><br>
         <h1 class = "text-margin">Manage Categories</h1>
         <br><br><br>
+
+        <?php
+
+        if(isset($_SESSION['add'])) {
+            echo $_SESSION['add'];
+            unset($_SESSION['add']);
+        }
+
+        ?>
+
                 <!-- Button to Add Cat-->
                 <span class='text-margin'>
-                <a href="#" class = "btn-primary">Add Category</a>
+                <a href="<?php echo SITEURL; ?>admin/add-category.php" class = "btn-primary">Add Category</a>
                 </span>
 
                 <br><br>
