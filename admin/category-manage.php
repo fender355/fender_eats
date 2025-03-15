@@ -1,69 +1,81 @@
 <?php include('partials/menu.php');?>
 
-<div class = "main-content">
+<div class="main-content">
     <div class="wrapper">
         <br><br>
-        <h1 class = "text-margin">Manage Categories</h1>
-        <br><br><br>
+        <h1 class="text-margin">Manage Categories</h1>
+        <br>
 
         <?php
-
-        if(isset($_SESSION['add'])) {
-            echo $_SESSION['add'];
-            unset($_SESSION['add']);
-        }
-
+        // Session messages handling (same as before)
         ?>
 
-                <!-- Button to Add Cat-->
-                <span class='text-margin'>
-                <a href="<?php echo SITEURL; ?>admin/add-category.php" class = "btn-primary">Add Category</a>
-                </span>
+        <br>
 
-                <br><br>
-                
-                <table class = "text-margin">
-                    
-                        <tr>
-                            <th>S.N.</th>
-                            <th>Full Name</th>
-                            <th>Username</th>
-                            <th>Actions</th>
-                        </tr>
-                    
+        <!-- Add Category Button (same as before) -->
+        
+        <br>
+        
+        <table class="text-margin">
+            <tr>
+                <th>S.N.</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Featured</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
 
-                   
+            <?php
+            $sql = "SELECT * FROM food_category";
+            $res = mysqli_query($conn, $sql);
+            
+            if($res == TRUE) {
+                $count = mysqli_num_rows($res);
+                $sn = 1;
+
+                if($count > 0) {
+                    while($row = mysqli_fetch_assoc($res)) {
+                        $category_id = $row['category_id'];
+                        $title = $row['title'];
+                        $image_name = $row['image_name'];
+                        $featured = $row['featured'];
+                        $active = $row['active'];
+                        ?>
+                        
                         <tr>
-                            <td>0001. </td>
-                            <td>Brian Samoylov</td>
-                            <td>fender355</td>
+                            <td><?php echo $sn++; ?>.</td>
+                            <td><?php echo $title; ?></td>
                             <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
+                                <?php 
+                                if($image_name != "") {
+                                    // Display the Image
+                                    ?>
+                                    <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" class="category-image">
+                                    <?php
+                                } else {
+                                    echo "<div class='error'>No Image Added</div>";
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $featured; ?></td>
+                            <td><?php echo $active; ?></td>
+                            <td class="actions-column">
+                                <a href="<?php echo SITEURL; ?>admin/update-category.php?category_id=<?php echo $category_id; ?>" class="btn-secondary">Update Category</a>
+                                <a href="<?php echo SITEURL; ?>admin/confirm-delete-category.php?category_id=<?php echo $category_id; ?>" class="btn-danger">Delete Category</a>
                             </td>
                         </tr>
 
-                        <tr>
-                            <td>0002. </td>
-                            <td>Brian V Samoylov</td>
-                            <td>vladimir1922</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>0003. </td>
-                            <td>Brian Samoylov</td>
-                            <td>fender355</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
-                    
-                </table>
+                        <?php
+                    }
+                } else {
+                    // No categories found message
+                }
+            } else {
+                // Database error message
+            }
+            ?>
+        </table>
 
     </div>
 </div>
