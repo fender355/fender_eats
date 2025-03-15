@@ -168,7 +168,14 @@ unset($_SESSION['form_data']);
                 <tr>
                     <td>Select Image: </td>
                     <td>
-                        <input type="file" name="image">
+                        <input type="file" name="image" id="imageInput">
+                    </td>
+                </tr>
+                <tr id="imagePreviewRow" style="display: none;">
+                    <td>Preview: </td>
+                    <td>
+                        <img id="imagePreview" src="#" alt="Image Preview" 
+                             style="max-width: 200px; max-height: 200px; padding: 5px; border: 1px solid #ddd;">
                     </td>
                 </tr>
 
@@ -196,12 +203,33 @@ unset($_SESSION['form_data']);
                     <td colspan="2">
                         <br>
                         <input type="submit" name="submit" value="Add Category" class="btn-secondary">
-                        <a href="<?= SITEURL ?>admin/admin-manage.php" class="btn-danger">Cancel</a>
+                        <a href="<?= SITEURL ?>admin/category-manage.php" class="btn-danger">Cancel</a>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
 </div>
+
+<script>
+// Add image preview functionality
+document.getElementById('imageInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const previewRow = document.getElementById('imagePreviewRow');
+    const previewImg = document.getElementById('imagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            previewRow.style.display = '';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        previewImg.src = '#';
+        previewRow.style.display = 'none';
+    }
+});
+</script>
 
 <?php include('partials/footer.php'); ?>

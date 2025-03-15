@@ -175,7 +175,16 @@ include('partials/menu.php');
                 <tr>
                     <td>New Image: </td>
                     <td>
-                        <input type="file" name="image">
+                        <input type="file" name="image" id="imageInput">
+                    </td>
+                </tr>
+
+                <!-- New Image Preview Row -->
+                <tr id="newImagePreviewRow" style="display: none;">
+                    <td>New Image Preview: </td>
+                    <td>
+                        <img id="newImagePreview" src="#" alt="New Image Preview" 
+                             style="max-width: 200px; max-height: 200px; padding: 5px; border: 1px solid #ddd;">
                     </td>
                 </tr>
 
@@ -208,5 +217,26 @@ include('partials/menu.php');
         </form>
     </div>
 </div>
+
+<script>
+// Add image preview functionality for new image
+document.getElementById('imageInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const previewRow = document.getElementById('newImagePreviewRow');
+    const previewImg = document.getElementById('newImagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            previewRow.style.display = '';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        previewImg.src = '#';
+        previewRow.style.display = 'none';
+    }
+});
+</script>
 
 <?php include('partials/footer.php'); ?>
