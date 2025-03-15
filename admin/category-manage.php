@@ -8,11 +8,32 @@
 
         <?php
         // Session messages handling (same as before)
+        if(isset($_SESSION['add'])) {
+            echo $_SESSION['add'];
+            unset($_SESSION['add']);
+        }
+
+        if(isset($_SESSION['delete'])) {
+            echo $_SESSION['delete'];
+            unset($_SESSION['delete']);
+        }
+
+        if(isset($_SESSION['update'])) {
+            echo $_SESSION['update'];
+            unset($_SESSION['update']);
+        }
         ?>
 
-        <br>
+        <br><br>
 
         <!-- Add Category Button (same as before) -->
+        <!-- Button to Add Cat-->
+        <span class='text-margin'>
+                <a href="<?php echo SITEURL; ?>admin/add-category.php" class = "btn-primary">Add Category</a>
+        </span>
+
+        <br>
+        
         
         <br>
         
