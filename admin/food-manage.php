@@ -1,60 +1,101 @@
-<?php include('partials/menu.php');?>
+<?php include('partials/menu.php'); ?>
 
-<div class = "main-content">
+<div class="main-content">
     <div class="wrapper">
         <br><br>
-        <h1 class = "text-margin">Manage Foods</h1>
-        <br><br><br>
+        <h1 class="text-margin">Manage Foods</h1>
+        <br>
 
-                <!-- Button to Add Cat-->
-                <span class='text-margin'>
-                <a href="#" class = "btn-primary">Add Food</a>
-                </span>
+        <?php
+        // Session messages handling
+        if(isset($_SESSION['add'])) {
+            echo $_SESSION['add'];
+            unset($_SESSION['add']);
+        }
 
-                <br><br>
-                
-                <table class = "text-margin">
-                    
+        if(isset($_SESSION['delete'])) {
+            echo $_SESSION['delete'];
+            unset($_SESSION['delete']);
+        }
+
+        if(isset($_SESSION['update'])) {
+            echo $_SESSION['update'];
+            unset($_SESSION['update']);
+        }
+        ?>
+
+        <br><br>
+
+        <!-- Add Food Button -->
+        <span class='text-margin'>
+            <a href="<?php echo SITEURL; ?>admin/add-food.php" class="btn-primary">Add Food</a>
+        </span>
+
+        <br><br>
+        
+        <table class="text-margin">
+            <tr>
+                <th>S.N.</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Featured</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+
+            <?php
+            $sql = "SELECT f.*, c.title AS category_title 
+                    FROM food_food f 
+                    LEFT JOIN food_category c ON f.category_id = c.category_id";
+            $res = mysqli_query($conn, $sql);
+            
+            if($res) {
+                $count = mysqli_num_rows($res);
+                $sn = 1;
+
+                if($count > 0) {
+                    while($row = mysqli_fetch_assoc($res)) {
+                        $id = $row['id'];
+                        $title = $row['title'];
+                        $price = $row['price'];
+                        $image_name = $row['image_name'];
+                        $category = $row['category_title'] ?? 'Uncategorized';
+                        $featured = $row['featured'];
+                        $active = $row['active'];
+                        ?>
+                        
                         <tr>
-                            <th>S.N.</th>
-                            <th>Full Name</th>
-                            <th>Username</th>
-                            <th>Actions</th>
-                        </tr>
-                    
-
-                   
-                        <tr>
-                            <td>0001. </td>
-                            <td>Brian Samoylov</td>
-                            <td>fender355</td>
+                            <td><?php echo $sn++; ?>.</td>
+                            <td><?php echo htmlspecialchars($title); ?></td>
+                            <td>RM <?php echo number_format($price, 2); ?></td>
                             <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
+                                <?php if(!empty($image_name)): ?>
+                                    <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" class="category-image">
+                                <?php else: ?>
+                                    <div class='error'>No Image</div>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo htmlspecialchars($category); ?></td>
+                            <td><?php echo htmlspecialchars($featured); ?></td>
+                            <td><?php echo htmlspecialchars($active); ?></td>
+                            <td class="actions-column">
+                                <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-secondary">Update Food</a>
+                                <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>" class="btn-danger">Delete Food</a>
                             </td>
                         </tr>
 
-                        <tr>
-                            <td>0002. </td>
-                            <td>Brian V Samoylov</td>
-                            <td>vladimir1922</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>0003. </td>
-                            <td>Brian Samoylov</td>
-                            <td>fender355</td>
-                            <td>
-                                <a href="#" class="btn-secondary">Update Admin</a>
-                                <a href="#" class="btn-danger">Delete Admin</a>
-                            </td>
-                        </tr>
-                    
-                </table>
+                        <?php
+                    }
+                } else {
+                    echo '<tr><td colspan="8"><div class="error">No Foods Found</div></td></tr>';
+                }
+            } else {
+                echo '<tr><td colspan="8"><div class="error">Database Query Error</div></td></tr>';
+            }
+            ?>
+        </table>
 
     </div>
 </div>
