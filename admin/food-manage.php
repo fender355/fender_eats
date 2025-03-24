@@ -22,6 +22,11 @@
             echo $_SESSION['update'];
             unset($_SESSION['update']);
         }
+
+        if(isset($_SESSION['error'])) {
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }
         ?>
 
         <br><br>
@@ -74,7 +79,7 @@
                                 <?php if(!empty($image_name)): ?>
                                     <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" class="category-image">
                                 <?php else: ?>
-                                    <div class='error'>No Image</div>
+                                    <div class='error'>No Image Added</div>
                                 <?php endif; ?>
                             </td>
                             <td><?php echo htmlspecialchars($category); ?></td>
@@ -82,7 +87,7 @@
                             <td><?php echo htmlspecialchars($active); ?></td>
                             <td class="actions-column">
                                 <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-secondary">Update Food</a>
-                                <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>" class="btn-danger">Delete Food</a>
+                                <a href="<?php echo SITEURL; ?>admin/confirm-delete-food.php?id=<?php echo $id; ?>" class="btn-danger">Delete Food</a>
                             </td>
                         </tr>
 
