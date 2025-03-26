@@ -2,8 +2,8 @@
 <div class = "footer">
             <div class = "wrapper">
                 <!-- Spotify, Facebook, Pinterest, Insta, Youtube, X --> 
-                
-                <p class = "text-margin"><br> Privacy Notice </p> 
+                        
+                <p class = "text-margin"><a href="../footers/privacy-notice.php" style="text-decoration: none; color: #000000;"><br> Privacy Notice </a></p> 
                 <p class = "text-margin"><br> Consumer Health Privacy Notice </p>
                 <p class = "text-margin"><br> Terms of Use </p>
                 <p class = "text-margin"><br> Do Not Share My Personal Information </p>
