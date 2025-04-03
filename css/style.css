@@ -189,6 +189,43 @@ fieldset{
     padding: 0 10px;
 }
 
+/* Back Button Styles */
+.btn-back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    color: #ff6b6b;
+    transform: translateX(-5px);
+}
+
+.category-header {
+    position: relative;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.category-header h2 {
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .btn-back {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    
+    .category-header h2 {
+        font-size: 22px;
+    }
+}
+
 
 /* CSS for Food Menu */
 /* Food Menu Section */
