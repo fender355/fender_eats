@@ -120,9 +120,13 @@
                         ?>
                     
                 </table>
-
-                <div></div>
                 <br><br>
+                <!-- Button to User Page-->
+                <span class = "text-margin">
+                <a href="user-manage.php" class = "btn-secondary">Manage Users...</a>
+                </span>
+
+                <br><br><br>
             </div>
         </div>
         <!-- Main Content Section Ends --> 

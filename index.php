@@ -97,8 +97,12 @@
                                 <h4><?= $title ?></h4>
                                 <p class="food-price">RM <?= $price ?></p>
                                 <p class="food-detail"><?= $description ?></p>
-                                <a href="<?= SITEURL ?>order.php?food_id=<?= $id ?>" 
-                                   class="btn btn-primary">Order Now</a>
+                                <form method="POST" action="add_to_cart.php">
+                                    <input type="hidden" name="food_id" value="<?= $id ?>">
+                                    <div class="order-label">Quantity</div>
+                                    <input type="number" name="quantity" value="1" min="1" class="input-responsive" style="width: 60px;">
+                                    <input type="submit" name="submit" value="Add to Cart" class="btn btn-primary">
+                                </form>
                             </div>
                         </div>
                         <?php

@@ -1,4 +1,13 @@
-<?php include('config/constants.php'); ?>
+<?php 
+
+session_start();
+include('config/constants.php'); 
+include('config.php');
+include('login-check.php'); 
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +45,12 @@
                     <li>
                         <a href="#">Contact</a>
                     </li>
+                    <li class="cart-link">
+                        <a href="cart.php">
+                            Cart <?= (!empty($_SESSION['cart'])) ? '('.count($_SESSION['cart']).')' : '' ?>
+                        </a>
+                    </li>
+                    <li><a href = "logout.php">Logout</a></li>
                 </ul>
             </div>
 
