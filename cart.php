@@ -1,67 +1,74 @@
-<?php include('partials-front/menu.php'); ?>
+<?php 
+session_start();
+include('partials-front/menu.php');
+?>
 
 <section class="food-menu">
     <div class="container">
         <h2 class="text-center">Your Cart</h2>
 
         <?php
-        if(isset($_SESSION['success'])) {
-            echo '<div class="success">'.$_SESSION['success'].'</div>';
-            unset($_SESSION['success']);
-        }
-        if(isset($_SESSION['error'])) {
-            echo '<div class="error">'.$_SESSION['error'].'</div>';
-            unset($_SESSION['error']);
+        if(isset($_SESSION['cart_message'])) {
+            echo '<div class="alert">'.$_SESSION['cart_message'].'</div>';
+            unset($_SESSION['cart_message']);
         }
         ?>
 
-        <form action="update_cart.php" method="POST">
-            <table class="tbl-30">
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                </tr>
-
-                <?php
-                $grand_total = 0;
-                if(!empty($_SESSION['cart'])) :
-                    foreach($_SESSION['cart'] as $key => $item) :
-                        $item_total = $item['price'] * $item['quantity'];
-                        $grand_total += $item_total;
-                ?>
-                <tr>
-                    <td><?= htmlspecialchars($item['title']) ?></td>
-                    <td>RM <?= number_format($item['price'], 2) ?></td>
-                    <td>
-                        <input type="number" name="quantities[<?= $key ?>]" 
-                               value="<?= $item['quantity'] ?>" min="1" class="input-responsive">
-                    </td>
-                    <td>RM <?= number_format($item_total, 2) ?></td>
-                    <td><a href="remove_from_cart.php?key=<?= $key ?>" class="btn btn-danger">Remove</a></td>
-                </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td colspan="3" class="text-right"><strong>Grand Total:</strong></td>
-                    <td>RM <?= number_format($grand_total, 2) ?></td>
-                    <td></td>
-                </tr>
-                <?php else : ?>
-                <tr>
-                    <td colspan="5" class="error">Your cart is empty</td>
-                </tr>
-                <?php endif; ?>
+        <?php if(!empty($_SESSION['cart'])): ?>
+        <div class="cart-wrapper">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $total = 0;
+                    foreach($_SESSION['cart'] as $key => $item):
+                        $itemTotal = $item['price'] * $item['quantity'];
+                        $total += $itemTotal;
+                    ?>
+                    <tr>
+                        <td><?= htmlspecialchars($item['title']) ?></td>
+                        <td>RM <?= number_format($item['price'], 2) ?></td>
+                        <td>
+                            <form method="POST" action="update_cart_item.php" class="quantity-form">
+                                <input type="hidden" name="item_key" value="<?= $key ?>">
+                                <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" class="quantity-input">
+                                <button type="submit" class="btn-update">↻</button>
+                            </form>
+                        </td>
+                        <td>RM <?= number_format($itemTotal, 2) ?></td>
+                        <td>
+                            <a href="remove_from_cart.php?key=<?= $key ?>" class="btn-remove">✕</a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-right">Grand Total:</td>
+                        <td colspan="2">RM <?= number_format($total, 2) ?></td>
+                    </tr>
+                </tfoot>
             </table>
-
-            <?php if(!empty($_SESSION['cart'])) : ?>
-            <div class="text-center" style="margin-top: 20px;">
-                <input type="submit" name="update" value="Update Cart" class="btn btn-primary">
-                <a href="checkout.php" class="btn btn-success">Proceed to Checkout</a>
+            
+            <div class="cart-actions">
+                <a href="<?= SITEURL ?>" class="btn-continue">Continue Shopping</a>
+                <a href="checkout.php" class="btn-checkout">Proceed to Checkout</a>
             </div>
-            <?php endif; ?>
-        </form>
+        </div>
+        <?php else: ?>
+            <div class="empty-cart">
+                <p>Your cart is empty</p>
+                <a href="<?= SITEURL ?>" class="btn-primary">Browse Foods</a>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 

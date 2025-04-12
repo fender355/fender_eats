@@ -64,18 +64,20 @@
     </section>
     <!-- Categories Section Ends Here -->
 
-    <!-- Food Menu Section Starts Here -->
+    <!-- Food Menu Section -->
     <section class="food-menu">
         <div class="container">
             <h2 class="text-center">Food Menu</h2>
 
             <div class="food-menu-container">
                 <?php 
-                $sql = "SELECT * FROM food_food WHERE active='Yes' AND featured='Yes' LIMIT 6";
-                $res = mysqli_query($conn, $sql);
-                
-                if(mysqli_num_rows($res) > 0) {
-                    while($row = mysqli_fetch_assoc($res)) {
+                $sql = "SELECT * FROM food_food WHERE active='Yes'";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $res = $stmt->get_result();
+
+                if($res->num_rows > 0) {
+                    while($row = $res->fetch_assoc()) {
                         $id = $row['id'];
                         $title = htmlspecialchars($row['title']);
                         $price = number_format($row['price'], 2);
@@ -85,11 +87,9 @@
                         <div class="food-menu-box">
                             <div class="food-menu-img">
                                 <?php if($image_name != ""): ?>
-                                    <img src="<?= SITEURL ?>images/food/<?= $image_name ?>" 
-                                         alt="<?= $title ?>" 
-                                         class="img-responsive img-curve">
+                                    <img src="<?= SITEURL ?>images/food/<?= $image_name ?>" alt="<?= $title ?>" class="img-responsive img-curve">
                                 <?php else: ?>
-                                    <div class="error">Image Not Available</div>
+                                    <div class="image-placeholder">No Image</div>
                                 <?php endif; ?>
                             </div>
 
@@ -100,7 +100,7 @@
                                 <form method="POST" action="add_to_cart.php">
                                     <input type="hidden" name="food_id" value="<?= $id ?>">
                                     <div class="order-label">Quantity</div>
-                                    <input type="number" name="quantity" value="1" min="1" class="input-responsive" style="width: 60px;">
+                                    <input type="number" name="quantity" value="1" min="1" class="input-responsive">
                                     <input type="submit" name="submit" value="Add to Cart" class="btn btn-primary">
                                 </form>
                             </div>
@@ -112,10 +112,7 @@
                 }
                 ?>
             </div>
-
             <div class="clearfix"></div>
         </div>
     </section>
-    <!-- Food Menu Section Ends Here -->
-
 <?php include('partials-front/footer.php'); ?>
