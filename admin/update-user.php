@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     if (empty($errors)) {
         $sql = "UPDATE user_acc SET
                 user_name = '$name',
-                user_mail = '$email'
+                user_email = '$email',
                 user_mobile = '$user_mobile'
                 WHERE user_acc_id = '$user_acc_id'";
 
