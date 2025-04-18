@@ -11,6 +11,14 @@
         <?php endif; ?>
         <div class="text-margin">
             <table class="tbl-full">
+                <colgroup>
+                    <col width="10%">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="17%">
+                    <col width="18%">
+                    <col width="25%">
+                </colgroup>
                 <tr>
                     <th>Order ID</th>
                     <th>Customer</th>
@@ -46,6 +54,8 @@
                     </td>
                     <td>
                         <a href="view_order.php?id=<?= $row['id'] ?>" class="btn-primary">View</a>
+                        <a href="edit-order.php?id=<?= $row['id'] ?>" class="btn-secondary">Edit</a>
+                        <a href="confirm-delete-order.php?id=<?= $row['id'] ?>" class="btn-danger">Delete</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

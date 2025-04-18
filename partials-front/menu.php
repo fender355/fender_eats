@@ -50,6 +50,9 @@ include('login-check.php');
                             Cart <?= (!empty($_SESSION['cart'])) ? '('.count($_SESSION['cart']).')' : '' ?>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?php echo SITEURL; ?>order-history.php">History</a>
+                    </li>
                     <li><a href = "logout.php">Logout</a></li>
                 </ul>
             </div>

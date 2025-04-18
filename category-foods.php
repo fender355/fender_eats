@@ -65,7 +65,7 @@ if(isset($_GET['category_id'])) {
                                              alt="<?php echo $title; ?>" 
                                              class="img-responsive img-curve">
                                     <?php else: ?>
-                                        <div class="error">Image Not Available</div>
+                                        <div class="image-placeholder">No Image</div>
                                     <?php endif; ?>
                                 </div>
 
@@ -73,8 +73,12 @@ if(isset($_GET['category_id'])) {
                                     <h4><?php echo $title; ?></h4>
                                     <p class="food-price">RM <?php echo $price; ?></p>
                                     <p class="food-detail"><?php echo $description; ?></p>
-                                    <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" 
-                                       class="btn btn-primary">Order Now</a>
+                                    <form method="POST" action="add_to_cart.php">
+                                        <input type="hidden" name="food_id" value="<?php echo $id; ?>">
+                                        <div class="order-label">Quantity</div>
+                                        <input type="number" name="quantity" value="1" min="1" class="input-responsive">
+                                        <input type="submit" name="submit" value="Add to Cart" class="btn btn-primary">
+                                    </form>
                                 </div>
                             </div>
                             <?php

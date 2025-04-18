@@ -19,10 +19,12 @@
             <div class="food-menu-container">
                 <?php 
                 $sql = "SELECT * FROM food_food WHERE active='Yes'";
-                $res = mysqli_query($conn, $sql);
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $res = $stmt->get_result();
                 
-                if(mysqli_num_rows($res) > 0) {
-                    while($row = mysqli_fetch_assoc($res)) {
+                if($res->num_rows > 0) {
+                    while($row = $res->fetch_assoc()) {
                         $id = $row['id'];
                         $title = htmlspecialchars($row['title']);
                         $price = number_format($row['price'], 2);
@@ -36,7 +38,7 @@
                                          alt="<?= $title ?>" 
                                          class="img-responsive img-curve">
                                 <?php else: ?>
-                                    <div class="error">Image Not Available</div>
+                                    <div class="image-placeholder">No Image</div>
                                 <?php endif; ?>
                             </div>
 
@@ -44,8 +46,12 @@
                                 <h4><?= $title ?></h4>
                                 <p class="food-price">RM <?= $price ?></p>
                                 <p class="food-detail"><?= $description ?></p>
-                                <a href="<?= SITEURL ?>order.php?food_id=<?= $id ?>" 
-                                   class="btn btn-primary">Order Now</a>
+                                <form method="POST" action="add_to_cart.php">
+                                    <input type="hidden" name="food_id" value="<?= $id ?>">
+                                    <div class="order-label">Quantity</div>
+                                    <input type="number" name="quantity" value="1" min="1" class="input-responsive">
+                                    <input type="submit" name="submit" value="Add to Cart" class="btn btn-primary">
+                                </form>
                             </div>
                         </div>
                         <?php

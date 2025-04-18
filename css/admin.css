@@ -58,6 +58,11 @@
     margin-right: 20px;
 }
 
+.tbl-full{
+    width: 100%; 
+    table-layout: auto;
+}
+
 table tr th{
     border-bottom: 1px solid black;
     text-align: left;
