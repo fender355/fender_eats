@@ -27,6 +27,22 @@
             echo $_SESSION['error'];
             unset($_SESSION['error']);
         }
+        
+        if (isset($_SESSION['import_result'])) {
+            echo '<div class="'.($_SESSION['import_result']['errors'] > 0 ? 'error' : 'success').'">';
+            echo "Import completed: {$_SESSION['import_result']['success']} successful, {$_SESSION['import_result']['errors']} failed.";
+            
+            if (!empty($_SESSION['import_result']['messages'])) {
+                echo '<ul>';
+                foreach ($_SESSION['import_result']['messages'] as $message) {
+                    echo '<li>'.htmlspecialchars($message).'</li>';
+                }
+                echo '</ul>';
+            }
+            
+            echo '</div>';
+            unset($_SESSION['import_result']);
+        }
         ?>
 
         <br><br>
@@ -34,6 +50,7 @@
         <!-- Add Food Button -->
         <span class='text-margin'>
             <a href="<?php echo SITEURL; ?>admin/add-food.php" class="btn-primary">Add Food</a>
+            <a href="<?= SITEURL ?>admin/import-food.php" class="btn-primary">Import Food</a>
         </span>
 
         <br><br>
