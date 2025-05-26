@@ -2,18 +2,38 @@
 include('config/constants.php');
 session_start();
 $errors = [];
+$old_input = $_POST; // Store old input for repopulating form
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_name = trim($_POST['user_name'] ?? '');
     $user_email = trim($_POST['user_email'] ?? '');
     $user_mobile = trim($_POST['user_mobile'] ?? '');
     $user_pw = trim($_POST['user_pw'] ?? '');
+    $confirm_pw = trim($_POST['confirm_pw'] ?? '');
 
+    // Validate password match first
+    if ($user_pw !== $confirm_pw) {
+        $errors[] = "Password and Confirm Password must match.";
+    }
+
+    // Validate required fields
     if (empty($user_name) || empty($user_email) || empty($user_pw)) {
         $errors[] = 'All fields marked * are required.';
     } elseif (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Invalid email format.';
     } elseif (strlen($user_pw) < 8) {
         $errors[] = 'Password must be at least 8 characters.';
+    }
+
+    // Validate mobile number if provided
+    if (!empty($user_mobile)) {
+        if (!preg_match('/^[0-9-]+$/', $user_mobile)) {
+            $errors[] = 'Mobile number can only contain numbers and hyphens.';
+        } elseif (strlen($user_mobile) < 9) {
+            $errors[] = 'Mobile number must be at least 9 characters.';
+        } elseif (strlen($user_mobile) > 20) {
+            $errors[] = 'Mobile number must be at most 20 characters.';
+        }
     }
 
     if (empty($errors)) {
@@ -34,9 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-}
-if ($_POST['user_pw'] !== $_POST['confirm_pw']) {
-    $errors[] = "Password and Confirm Password must match.";
 }
 ?>
 
@@ -69,7 +86,6 @@ if ($_POST['user_pw'] !== $_POST['confirm_pw']) {
             width: 55%;
             margin-right: 8px;
         }
-    </style>
     </style>
 </head>
 <body>
