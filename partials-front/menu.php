@@ -1,8 +1,7 @@
 <?php 
 session_start();
 include('config/constants.php'); 
-include('config.php');
-include('login-check.php'); 
+include('partials-front/login-check.php'); 
 
 // Initialize font settings if not set
 if (!isset($_SESSION['font_size'])) {
@@ -20,9 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['font_color'])) {
         $_SESSION['font_color'] = $_POST['font_color'];
     }
-    // Redirect to avoid form resubmission
-    header("Location: ".$_SERVER['PHP_SELF']);
-    exit();
 }
 ?>
 
@@ -82,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding-bottom: 0;
         }
         
-        /* Dropdown styles */
+        /* Dropdown styles - now wider but shorter */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -93,10 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: absolute;
             right: 0;
             background-color: #f9f9f9;
-            min-width: 200px;
+            min-width: 250px; /* Increased width */
+            max-height: 300px; /* Limit height */
+            overflow-y: auto; /* Add scroll if needed */
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
-            padding: 12px;
+            padding: 10px;
             border-radius: 5px;
         }
         
@@ -120,10 +118,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #ff4757;
         }
         
+        /* More compact options layout */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 5px;
+        }
+        
+        .font-options, .color-options {
+            display: contents; /* Children will participate in grid */
+        }
+        
         .font-option, .color-option {
-            margin: 5px 0;
-            padding: 5px;
+            padding: 3px 5px;
             cursor: pointer;
+            white-space: nowrap;
         }
         
         .font-option:hover, .color-option:hover {
@@ -132,11 +141,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         .color-preview {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
+            width: 15px;
+            height: 15px;
+            margin-right: 8px;
             vertical-align: middle;
             border: 1px solid #ddd;
+        }
+        
+        /* Compact form styling */
+        .dropdown-content h4 {
+            margin: 5px 0;
+            grid-column: span 2; /* Make headers span both columns */
+        }
+        
+        .dropdown-content .btn {
+            grid-column: span 2;
+            margin-top: 8px;
+            padding: 5px;
         }
         
         /* Make sure menu items align properly */
@@ -184,47 +205,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a class="dropdown-btn">Display Options</a>
                             <div class="dropdown-content">
                                 <form method="post" action="">
-                                    <h4>Font Size</h4>
-                                    <div class="font-option">
-                                        <input type="radio" id="small" name="font_size" value="small" <?= ($_SESSION['font_size'] == 'small') ? 'checked' : '' ?>>
-                                        <label for="small">Small</label>
+                                    <div class="options-grid">
+                                        <h4>Font Size</h4>
+                                        <h4>Font Color</h4>
+                                        
+                                        <div class="font-options">
+                                            <div class="font-option">
+                                                <input type="radio" id="small" name="font_size" value="small" <?= ($_SESSION['font_size'] == 'small') ? 'checked' : '' ?>>
+                                                <label for="small">Small</label>
+                                            </div>
+                                            <div class="font-option">
+                                                <input type="radio" id="medium" name="font_size" value="medium" <?= ($_SESSION['font_size'] == 'medium') ? 'checked' : '' ?>>
+                                                <label for="medium">Medium</label>
+                                            </div>
+                                            <div class="font-option">
+                                                <input type="radio" id="large" name="font_size" value="large" <?= ($_SESSION['font_size'] == 'large') ? 'checked' : '' ?>>
+                                                <label for="large">Large</label>
+                                            </div>
+                                            <div class="font-option">
+                                                <input type="radio" id="xlarge" name="font_size" value="xlarge" <?= ($_SESSION['font_size'] == 'xlarge') ? 'checked' : '' ?>>
+                                                <label for="xlarge">X-Large</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="color-options">
+                                            <div class="color-option">
+                                                <div class="color-preview" style="background-color: #000000;"></div>
+                                                <input type="radio" id="black" name="font_color" value="#000000" <?= ($_SESSION['font_color'] == '#000000') ? 'checked' : '' ?>>
+                                                <label for="black">Black</label>
+                                            </div>
+                                            <div class="color-option">
+                                                <div class="color-preview" style="background-color: #3333cc;"></div>
+                                                <input type="radio" id="blue" name="font_color" value="#3333cc" <?= ($_SESSION['font_color'] == '#3333cc') ? 'checked' : '' ?>>
+                                                <label for="blue">Blue</label>
+                                            </div>
+                                            <div class="color-option">
+                                                <div class="color-preview" style="background-color: #990000;"></div>
+                                                <input type="radio" id="red" name="font_color" value="#990000" <?= ($_SESSION['font_color'] == '#990000') ? 'checked' : '' ?>>
+                                                <label for="red">Red</label>
+                                            </div>
+                                            <div class="color-option">
+                                                <div class="color-preview" style="background-color: #006600;"></div>
+                                                <input type="radio" id="green" name="font_color" value="#006600" <?= ($_SESSION['font_color'] == '#006600') ? 'checked' : '' ?>>
+                                                <label for="green">Green</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="submit" value="Apply" class="btn btn-primary">
                                     </div>
-                                    <div class="font-option">
-                                        <input type="radio" id="medium" name="font_size" value="medium" <?= ($_SESSION['font_size'] == 'medium') ? 'checked' : '' ?>>
-                                        <label for="medium">Medium</label>
-                                    </div>
-                                    <div class="font-option">
-                                        <input type="radio" id="large" name="font_size" value="large" <?= ($_SESSION['font_size'] == 'large') ? 'checked' : '' ?>>
-                                        <label for="large">Large</label>
-                                    </div>
-                                    <div class="font-option">
-                                        <input type="radio" id="xlarge" name="font_size" value="xlarge" <?= ($_SESSION['font_size'] == 'xlarge') ? 'checked' : '' ?>>
-                                        <label for="xlarge">Extra Large</label>
-                                    </div>
-                                    
-                                    <h4>Font Color</h4>
-                                    <div class="color-option">
-                                        <div class="color-preview" style="background-color: #000000;"></div>
-                                        <input type="radio" id="black" name="font_color" value="#000000" <?= ($_SESSION['font_color'] == '#000000') ? 'checked' : '' ?>>
-                                        <label for="black">Black</label>
-                                    </div>
-                                    <div class="color-option">
-                                        <div class="color-preview" style="background-color: #3333cc;"></div>
-                                        <input type="radio" id="blue" name="font_color" value="#3333cc" <?= ($_SESSION['font_color'] == '#3333cc') ? 'checked' : '' ?>>
-                                        <label for="blue">Blue</label>
-                                    </div>
-                                    <div class="color-option">
-                                        <div class="color-preview" style="background-color: #990000;"></div>
-                                        <input type="radio" id="red" name="font_color" value="#990000" <?= ($_SESSION['font_color'] == '#990000') ? 'checked' : '' ?>>
-                                        <label for="red">Red</label>
-                                    </div>
-                                    <div class="color-option">
-                                        <div class="color-preview" style="background-color: #006600;"></div>
-                                        <input type="radio" id="green" name="font_color" value="#006600" <?= ($_SESSION['font_color'] == '#006600') ? 'checked' : '' ?>>
-                                        <label for="green">Green</label>
-                                    </div>
-                                    
-                                    <input type="submit" value="Apply" class="btn btn-primary" style="margin-top: 10px;">
                                 </form>
                             </div>
                         </div>
