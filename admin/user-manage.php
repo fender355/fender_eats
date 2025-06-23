@@ -11,27 +11,33 @@
                 <?php 
 
                     if(isset($_SESSION['add'])) {
-
                         echo $_SESSION['add']; // Display Session Message
                         unset($_SESSION['add']); // Removing Session Message
-
                     }
 
                     if(isset($_SESSION['delete'])) {
-
                         echo $_SESSION['delete']; //~
                         unset($_SESSION['delete']); //~
-
                     }
 
                 ?>
 
-                <br><br>
+                <br>
 
-                <!-- Button to Add User -->
-                <span class = "text-margin">
-                <a href="add-user.php" class = "btn-primary">Add User</a>
-                </span>
+                <!-- Search Bar -->
+                <div class="text-margin">
+                    <form method="GET" action="" style="margin-bottom: 10px;">
+                        <input type="text" name="search" placeholder="Search by name..." 
+                               value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                        <input type="submit" value="Search" class="btn-primary">
+                        <?php if(isset($_GET['search']) && !empty($_GET['search'])): ?>
+                            <a href="user-manage.php" class="btn-secondary" style="margin-left: 5px;">Clear</a>
+                        <?php endif; ?>
+                    </form>
+                    
+                    <!-- Add User Button -->
+                    <a href="add-user.php" class = "btn-primary">Add User</a>
+                </div>
 
                 <br><br>
 
@@ -47,8 +53,13 @@
                     
                         <?php 
 
-                            // Query to Get all Users
-                            $sql = "SELECT * FROM user_acc";
+                            // Query to Get all Users with search functionality
+                            $search = isset($_GET['search']) ? $_GET['search'] : '';
+                            if(!empty($search)) {
+                                $sql = "SELECT * FROM user_acc WHERE user_name LIKE '%".mysqli_real_escape_string($conn, $search)."%'";
+                            } else {
+                                $sql = "SELECT * FROM user_acc";
+                            }
 
                             // Execute the Query 
                             $res = mysqli_query($conn, $sql);
@@ -72,7 +83,7 @@
                                         $user_name = $rows['user_name'];
                                         $user_email = $rows['user_email'];
                                         $user_mobile = $rows['user_mobile'];
-                                        $user_pw = $rows=['user_pw'];
+                                        $user_pw = $rows['user_pw'];
 
                                         // Display values in table
                                         ?> 
@@ -83,8 +94,8 @@
                                             <td><?php echo htmlspecialchars($user_email); ?></td>
                                             <td><?php echo htmlspecialchars($user_mobile); ?></td>
                                             <td>
-                                                <a href="update-user.php?user_acc_id=<?php echo $user_acc_id; ?>" class="btn-secondary">Update User</a>
                                                 <a href="update-password-user.php?user_acc_id=<?php echo $user_acc_id; ?>" class="btn-primary">Change Password</a>
+                                                <a href="update-user.php?user_acc_id=<?php echo $user_acc_id; ?>" class="btn-secondary">Update User</a>
                                                 <a href="confirm-delete-user.php?user_acc_id=<?php echo $user_acc_id; ?>" class="btn-danger">Delete User</a>
                                             </td>
                                         </tr> 
@@ -97,7 +108,7 @@
 
                                     ?> 
                                     <tr>
-                                        <td colspan="5">No users found.</td>
+                                        <td colspan="5">No users found<?php echo !empty($search) ? ' matching your search.' : '.'; ?></td>
                                     </tr>
                                     <?php
 
